@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  backup:
+    build: .
+    image: countable/postgres-s3-backup-job:9.6
+    volumes:
+      - $HOME/.aws/credentials:/root/.aws/credentials
+
+  # A test database to back up.
+  db:
+    image: postgres:9.6
+

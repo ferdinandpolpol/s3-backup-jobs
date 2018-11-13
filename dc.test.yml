@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  backup:
+    environment:
+      # Replace this with the name of your backup and subfolders where you want backups saved.
+      - BUCKET=countable/backups
+      # Replace this with a unique identifier for you website. ie, your git repo slug.
+      - SITE=test-site
