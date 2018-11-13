@@ -25,7 +25,7 @@ services:
     environment:
       - BUCKET=countable/backups
       - SITE=test-site
-      - FREQ=7200
+      - FREQ=3600
     volumes:
       - $HOME/.aws/credentials:/root/.aws/credentials
 
