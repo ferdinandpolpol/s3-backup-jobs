@@ -2,7 +2,10 @@
 
 set -euxo
 
-while 1
+FREQ="${FREQ:-3600}"
+
+while true
+do
     /backup.sh
-    sleep 3600
-    
+    sleep $FREQ
+done  
