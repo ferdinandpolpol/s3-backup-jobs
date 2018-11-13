@@ -1,5 +1,7 @@
 FROM postgres:9.6
 
+RUN echo "whyyyyyy????"
+
 RUN apt-get update \
   && apt-get install -y python-pip lrzip
 
