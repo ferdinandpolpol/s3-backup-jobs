@@ -8,7 +8,7 @@ You should first install awscli, and run aws configure. Ensure you can write to 
 pip install --user awscli
 aws configure
 touch test.txt
-aws s3 cp text.txt countable/backups/test.txt
+aws s3 cp test.txt countable/backups/test.txt
 ```
 
 Just add a service as follows to docker-compose.yml and it will back up your database each hour in a nice folder configuration (split up by month). ie)
