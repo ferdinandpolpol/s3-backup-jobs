@@ -1,11 +1,15 @@
-FROM postgres:9.6
+FROM alpine
 
-RUN echo "whyyyyyy????"
+RUN apk add --update \
+   python \
+   lrzip \
+   py-pip \
+   docker \
+  && pip install awscli \ 
+  && rm -fr /var/cache/apk/*
+#RUN apt-get update \
+#  && apt-get install -y docker.io python-pip lrzip
 
-RUN apt-get update \
-  && apt-get install -y python-pip lrzip
-
-RUN pip install awscli
 
 COPY backup-forever.sh /backup-forever.sh
 COPY backup.sh /backup.sh

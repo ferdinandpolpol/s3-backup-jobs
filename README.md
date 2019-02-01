@@ -23,9 +23,8 @@ services:
   backup:
     image: countable/postgres-s3-backup-job:9.6
     environment:
-      - BUCKET=countable/backups
-      - SITE=test-site
-      - FREQ=3600
+      - BACKUP_BUCKET=countable/backups
+      - BACKUP_FREQ=3600
     volumes:
       - $HOME/.aws/credentials:/root/.aws/credentials
 
@@ -51,5 +50,5 @@ docker-compose run backup /backup.sh
 
 Share to dockerhub.
 ```
-docker push postgres-s3-backup-job:9.6
+docker push s3-backup-job:9.6
 ```

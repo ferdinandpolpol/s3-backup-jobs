@@ -3,37 +3,40 @@
 set -e
 set -x
 
-if [ -z "$SITE" ]
+if [ -z "$BACKUP_BUCKET" ]
 then
-  echo please set SITE env var to the name of your project.
-  exit 1
+  BACKUP_BUCKET=backups
+  echo "BACKUP_BUCKET env var not specified, defaulting to the 'backups' bucket."
 fi
 
-if [ -z "$BUCKET" ]
+if [ -z "$BACKUP_CMD" ]
 then
-  BUCKET=backups
-  echo "BUCKET env var not specified, defaulting to the 'backups' bucket."
+   BACKUP_CMD="pg_dump -U postgres -f /dump postgres"
+   echo "BACKUP_CMD env var not specified, defaulting to '${BACKUP_CMD}'."
 fi
 
-#if [ -z "$AWS_ACCESS_KEY_ID" ]
-#then
-#  echo please set AWS_ACCESS_KEY_ID.
-#  exit 1
-#fi
+if [ -e $HOME/.aws/credentials ]
+then
+    echo "aws credentials found."
+else
+    echo "no ~/.aws/credentials file found. please mount one for me."
+    exit 1
+fi
 
-#if [ -z "$AWS_SECRET_ACCESS_KEY" ]
-#then
-#  echo please set AWS_SECRET_ACCESS_KEY.
-#  exit 1
-#fi
-
-site=$SITE
+site=$(docker ps --format '{{.Names}}' | grep _backup_ | cut -d'_' -f1) 
 filename=$site.$(date +%Y%m%d-%H%M%S).sql
 folder=$(date +%Y%m)
-rm -f /tmp/*.sql
-rm -f /tmp/*.lrz
-pg_dump -h db -U postgres -f /tmp/$filename postgres
-lrzip /tmp/$filename
-rm /tmp/$filename
-aws s3 mv /tmp/$filename.lrz s3://$BUCKET/$site/$folder/$filename.lrz
+
+rm -rf /dump
+rm -f /dump.lrz
+
+docker exec -t ${site}_db_1 rm -fr /dump
+docker exec -t ${site}_db_1 $BACKUP_CMD
+docker cp ${site}_db_1:/dump /dump
+
+tar cvf /dump.tar /dump
+lrzip /dump.tar
+rm -r /dump
+
+aws s3 mv /dump.tar.lrz s3://$BACKUP_BUCKET/$site/$folder/$filename.tar.lrz
 

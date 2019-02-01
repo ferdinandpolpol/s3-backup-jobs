@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/ash
 
 set -euxo
 
-FREQ="${FREQ:-3600}"
+BACKUP_FREQ="${BACKUP_FREQ:-3600}"
 
 while true
 do
     /backup.sh
-    sleep $FREQ
+    sleep $BACKUP_FREQ
 done  

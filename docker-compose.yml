@@ -3,10 +3,12 @@ version: '2'
 services:
   backup:
     build: .
-    image: countable/postgres-s3-backup-job:9.6
+    image: countable/s3-backup-job:1.0
     volumes:
       - $HOME/.aws/credentials:/root/.aws/credentials
-
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - BACKUP_BUCKET=countable/backups
   # A test database to back up.
   db:
     image: postgres:9.6
