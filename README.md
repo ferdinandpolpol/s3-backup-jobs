@@ -21,13 +21,15 @@ services:
   
 # Add these lines to automatically back up your db hourly.
   backup:
-    image: countable/postgres-s3-backup-job:9.6
-    environment:
-      - BACKUP_BUCKET=countable/backups
-      - BACKUP_FREQ=3600
+    build: .
+    image: countable/s3-backup-job:1.0
     volumes:
       - $HOME/.aws/credentials:/root/.aws/credentials
-
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - BACKUP_BUCKET=countable/backups
+      # Set to your server's docker API version.
+      - DOCKER_API_VERSION=1.23
 ```
 
 This system currently assumes you have a postgres database service in docker-compose, called db. (or, at least the `db` name resolves to your database from within the backup container.
