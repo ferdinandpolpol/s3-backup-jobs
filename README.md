@@ -1,6 +1,6 @@
 # s3-backup-job
 
-Automated backups for your dockerized postgres db.
+Automated backups for your dockerized db.
 
 You should first install awscli, and run aws configure. Ensure you can write to your backups directory.
 
@@ -36,7 +36,7 @@ services:
       - DOCKER_API_VERSION=1.23
 ```
 
-This system currently assumes you have a database service in docker-compose, called db. (or, at least the `db` name resolves to your database from within the backup container. If you're using postgres (not mongodb), remove the `BACKUP_CMD` variable from the above lines. Other than that, the default options should work pretty well for you.
+This system currently assumes you have a database service in docker-compose, called db. (or, at least the `db` name resolves to your database from within the backup container. If you're using postgres (not mongodb), remove the `BACKUP_CMD` variable from the above lines. Other than that, the default options should work pretty well for you. For other databases, replace the BACKUP_CMD with a line that produces a file called `dump` as the backup output to store.
 
 
 ## Developing
