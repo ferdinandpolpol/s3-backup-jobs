@@ -2,6 +2,8 @@
 
 Automated backups for your dockerized db.
 
+## Instructons
+
 While you technically just need to create a `~/.aws/credentials` file, it's a good idea to install awscli, and run aws configure. Ensure you can write to your backups directory.
 
 ```
