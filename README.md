@@ -28,6 +28,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - BACKUP_BUCKET=countable/backups
+      # Optional, command to generate your backup output. It must create a file or folder called `dump` in the root.
+      - BACKUP_CMD=mongodump
       # Set to your server's docker API version.
       - DOCKER_API_VERSION=1.23
 ```
