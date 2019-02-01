@@ -1,4 +1,4 @@
-# postgres-s3-backup-job
+# s3-backup-job
 
 Automated backups for your dockerized postgres db.
 
