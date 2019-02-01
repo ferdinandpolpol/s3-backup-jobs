@@ -52,5 +52,5 @@ docker-compose run backup /backup.sh
 
 Share to dockerhub.
 ```
-docker push s3-backup-job:9.6
+docker push s3-backup-job:1.0
 ```
