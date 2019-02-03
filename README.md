@@ -1,4 +1,4 @@
-# postgres-s3-backup-job
+# s3-backup-job
 
 Automated backups for your dockerized postgres db.
 
@@ -21,7 +21,7 @@ services:
   
 # Add these lines to automatically back up your db hourly.
   backup:
-    image: countable/postgres-s3-backup-job:9.6
+    image: countable/s3-backup-job:1.0
     environment:
       - BACKUP_BUCKET=countable/backups
       - BACKUP_FREQ=3600
@@ -50,5 +50,5 @@ docker-compose run backup /backup.sh
 
 Share to dockerhub.
 ```
-docker push s3-backup-job:9.6
+docker push s3-backup-job:1.0
 ```
