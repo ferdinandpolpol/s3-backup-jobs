@@ -36,6 +36,7 @@ services:
       - BACKUP_CMD=mongodump
       # Set to your server's docker API version. Run `docker version` to find this.
       - DOCKER_API_VERSION=1.23
+    restart: always
 ```
 
 This system currently assumes you have a database service in docker-compose, called db. (or, at least the `db` name resolves to your database from within the backup container. If you're using postgres (not mongodb), remove the `BACKUP_CMD` variable from the above lines. Other than that, the default options should work pretty well for you. For other databases, replace the BACKUP_CMD with a line that produces a file called `dump` as the backup output to store.
