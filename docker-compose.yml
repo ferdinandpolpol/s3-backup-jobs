@@ -9,6 +9,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - BACKUP_BUCKET=countable/backups
+    restart: always
   # A test database to back up.
   db:
     image: postgres:9.6
